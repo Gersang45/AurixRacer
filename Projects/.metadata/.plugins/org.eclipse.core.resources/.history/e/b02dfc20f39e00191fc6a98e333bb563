@@ -1,0 +1,52 @@
+#include "Q_CollisionAvoidance.h"
+
+/******************************************************************************/
+/*------------------------------Global variables------------------------------*/
+/******************************************************************************/
+boolean flag_obs = FALSE;
+
+/******************************************************************************/
+/*-----------------------------Private variables------------------------------*/
+/******************************************************************************/
+float Obstacle_Distance;
+
+/******************************************************************************/
+/*-------------------------Function Implementations---------------------------*/
+/******************************************************************************/
+
+
+void InfineonRacer_DetectObstacle(void)
+{
+	int i = 0;
+
+	for(i=0; i <24; i++)
+	{
+		if(IR_Radar[i] <= 700)    // unit mm
+		{
+			if( i == 0 || i == 23  || i == 1){
+				Obstacle_Distance = (float)IR_Radar[i];
+				State_Track = Lanechange;
+				break;
+			}
+		}
+		else 		flag_obs = FALSE;
+	}
+
+}
+
+void InfineonRacer_AvoidObstacle(void)
+{
+	switch(Pos_DL)
+	{
+		case Dash_left:
+			State_Track = Dashline;
+			break;
+		case Dash_right:
+			float TargetPoint_Dsitacne = sqrt(0.36 + pow(Obstacle_Distance,2));
+
+			State_Track = Dashline;
+			break;
+		default:
+			break;
+	}
+}

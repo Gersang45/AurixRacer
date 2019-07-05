@@ -1,0 +1,3 @@
+20:01:24 **** Clean-only build of configuration Default for project AurixRacer_SB_TC27D ****
+make clean 
+Deleting build generated files !!!
